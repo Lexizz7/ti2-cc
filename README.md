@@ -3,9 +3,13 @@ Todas as alterações no repositório feitas pelo Eclipse IDE (com excessão do 
 
 ## 📖 Organização
 ### Exercício 1
+Caminho: `exercicio01/src`
+
 Apresenta uma classe para somar dois números, feita apenas para testar a integração entre Eclipse e Git
 
 ### Exercício 2
+Caminho: `exercicio2/src/main/java/exercicio2`
+
 Apresenta classe Aluno, com os atributos matrícula, nome, idade, sexo, curso e período.
 
 Conecta a um banco de dados PostgreSQL
