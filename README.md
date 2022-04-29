@@ -30,6 +30,8 @@ Backend em Java usando Spark Framework (retorna respostas em JSON)
 
 Frontend (formulario.html) usa fetch para receber o JSON do backend
 
+![Print da tela de formulario](https://i.imgur.com/dhBgpEQ.png "Print da tela de formulario")
+
 ## ⭐ Auto-avaliação
 Nota: 5.0/5.0
 
