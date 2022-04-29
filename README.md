@@ -1,4 +1,4 @@
-# Exercícios 1 e 2 de TI (Integração Eclipse IDE, Git e PostgreSQL)
+# Exercícios de TI (Integração Eclipse IDE, Git e PostgreSQL)
 Todas as alterações no repositório feitas pelo Eclipse IDE (com excessão do README)
 
 ## 📖 Organização
