@@ -16,6 +16,20 @@ Conecta a um banco de dados PostgreSQL
 
 Apresenta um menu para acessar as funções CRUD
 
+### Exercício 3
+Caminho: `exercicio03/src/main/java/exercicio03`
+HTML: `exercicio03/src/main/resources/formulario.html`
+
+Produto: Alunos matriculados
+
+Tabela: Aluno; Colunas: Matrícula, Nome, Idade, Sexo, Curso, Periodo
+
+Formulario com funções CRUD
+
+Backend em Java usando Spark Framework (retorna respostas em JSON)
+
+Frontend (formulario.html) usa fetch para receber o JSON do backend
+
 ## ⭐ Auto-avaliação
 Nota: 5.0/5.0
 
