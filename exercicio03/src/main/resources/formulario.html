@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Consulta matrícula</title>
+
+        <!-- Styles -->
+        <style></style>
+    </head>
+    <body>
+        <h1>Listar alunos</h1>
+        <button id="listarbutton">Listar alunos matriculados</button>
+
+        <section id="inserir">
+            <h1>Inserir aluno</h1>
+            <form>
+                <label for="matricula">Matrícula:</label>
+                <input type="number" name="matricula" placeholder="Matrícula" required />
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" placeholder="Nome" required />
+                <label for="idade">Idade:</label>
+                <input type="number" name="idade" placeholder="Idade" required />
+                <label for="sexo">Sexo:</label>
+                <select name="sexo" required>
+                    <option value="">Selecione</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                </select>
+                <label for="curso">Curso:</label>
+                <input type="text" name="curso" placeholder="Curso" required />
+                <label for="periodo">Período:</label>
+                <input type="number" name="periodo" placeholder="Período" required />
+
+                <input type="submit" value="Inserir" />
+            </form>
+        </section>
+
+        <section id="consultar">
+            <h1>Consultar aluno</h1>
+            <form>
+                <label for="matricula">Matrícula:</label>
+                <input type="number" name="matricula" placeholder="Matrícula" required />
+
+                <input type="submit" value="Consultar" />
+            </form>
+        </section>
+
+        <section id="excluir">
+            <h1>Excluir aluno</h1>
+            <form>
+                <label for="matricula">Matrícula:</label>
+                <input type="number" name="matricula" placeholder="Matrícula" required />
+
+                <input type="submit" value="Excluir" />
+            </form>
+        </section>
+
+        <section id="listar"></section>
+
+        <script>
+            var inserir = document.querySelector("#inserir");
+            var consultar = document.querySelector("#consultar");
+            var excluir = document.querySelector("#excluir");
+            var listar = document.querySelector("#listar");
+            var listarbutton = document.querySelector("#listarbutton");
+
+            inserir.querySelector("form").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const matricula = this.matricula.value;
+                const nome = this.nome.value;
+                const idade = this.idade.value;
+                const sexo = this.sexo.value;
+                const curso = this.curso.value;
+                const periodo = this.periodo.value;
+
+                fetch(`http://localhost:3001/insertAluno/${matricula}/${nome}/${idade}/${sexo}/${curso}/${periodo}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        alert("Aluno inserido com sucesso!");
+                    })
+                    .catch((error) => alert("Erro ao inserir aluno"));
+            });
+
+            consultar.querySelector("form").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const matricula = this.matricula.value;
+
+                fetch(`http://localhost:3001/searchAluno/${matricula}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.length == 0) {
+                            alert("Aluno não encontrado!");
+                        } else {
+                            listar.innerHTML = `
+                                <h1>Aluno encontrado</h1>
+                                <p>Matrícula: ${data[0].matricula}</p>
+                                <p>Nome: ${data[0].nome}</p>
+                                <p>Idade: ${data[0].idade}</p>
+                                <p>Sexo: ${data[0].sexo}</p>
+                                <p>Curso: ${data[0].curso}</p>
+                                <p>Período: ${data[0].periodo}</p>
+                            `;
+                        }
+                    })
+                    .catch((error) => alert("Erro ao consultar aluno"));
+            });
+
+            excluir.querySelector("form").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const matricula = this.matricula.value;
+
+                fetch(`http://localhost:3001/removeAluno/${matricula}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data) {
+                            alert("Aluno excluído com sucesso!");
+                        } else {
+                            alert("Aluno não encontrado!");
+                        }
+                    })
+                    .catch((error) => alert("Erro ao excluir aluno"));
+            });
+
+            listarbutton.addEventListener("click", function (event) {
+                fetch(`http://localhost:3001/getAlunos`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.length == 0) {
+                            alert("Não há alunos matriculados!");
+                        } else {
+                            listar.innerHTML = `
+                                <h1>Alunos matriculados</h1>
+                                <table>
+                                    <tr>
+                                        <th>Matrícula</th>
+                                        <th>Nome</th>
+                                        <th>Idade</th>
+                                        <th>Sexo</th>
+                                        <th>Curso</th>
+                                        <th>Período</th>
+                                    </tr>
+                                </table>
+                            `;
+
+                            var table = listar.querySelector("table");
+
+                            for (let i = 0; i < data.length; i++) {
+                                table.innerHTML += `
+                                    <tr>
+                                        <td>${data[i].matricula}</td>
+                                        <td>${data[i].nome}</td>
+                                        <td>${data[i].idade}</td>
+                                        <td>${data[i].sexo}</td>
+                                        <td>${data[i].curso}</td>
+                                        <td>${data[i].periodo}</td>
+                                    </tr>
+                                `;
+                            }
+                        }
+                    })
+                    .catch((error) => alert("Erro ao listar alunos"));
+            });
+        </script>
+    </body>
+</html>
